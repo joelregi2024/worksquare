@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WorkSquare</title>
+<style>
+:root{--bg:#f6f7f9;--c:#fff;--t:#111827;--m:#4b5563;--p:#0f766e;--pt:#fff;--o:#b45309;--r:#b91c1c;--b:#d1d5db}
+@media(prefers-color-scheme:dark){:root{--bg:#0f172a;--c:#1e293b;--t:#f1f5f9;--m:#cbd5e1;--p:#5eead4;--pt:#042f2e;--o:#fbbf24;--r:#fca5a5;--b:#475569}}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--t)}
+header{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;padding:.75rem 1rem;background:var(--c);border-bottom:1px solid var(--b)}
+header h1{font-size:1.2rem;margin:0 auto 0 0}header small{display:block;font-size:.75rem;color:var(--m);font-weight:400}
+main{max-width:1000px;margin:auto;padding:1rem}.banner{background:var(--c);border:1px dashed var(--o);border-radius:8px;padding:.5rem .75rem;margin-bottom:1rem;color:var(--m)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:1rem}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:1rem}.card h2{margin:0 0 .5rem;font-size:1.1rem}
+button,select,input,textarea{font:inherit;min-height:48px;border-radius:8px;border:1px solid var(--b);padding:.4rem .7rem;background:var(--c);color:var(--t)}
+.card select,.card input,.card textarea{width:100%;margin:.25rem 0 .6rem}label{display:block;font-weight:600}
+button{background:var(--p);color:var(--pt);border:0;font-weight:700;cursor:pointer}button.alt{background:var(--o);color:var(--pt)}button.on{outline:3px solid var(--o)}
+button:disabled{opacity:.4;cursor:not-allowed}.row{display:flex;gap:.5rem}.row button{flex:1}
+:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+table{width:100%;border-collapse:collapse}th,td{padding:.4rem;text-align:left;border-bottom:1px solid var(--b);vertical-align:top}.sc{overflow-x:auto}
+.stat{font-size:1.8rem;font-weight:800;color:var(--p)}.big{font-size:1.1rem;font-weight:700}.m{color:var(--m)}.warn{color:var(--o);font-weight:700}
+.bar{background:var(--p);height:14px;border-radius:7px;min-width:2px}#toast{position:fixed;bottom:1rem;left:1rem;right:1rem;padding:.75rem;border-radius:8px;background:var(--c);border:2px solid var(--p);font-weight:600}
+#toast:empty{display:none}#toast.bad{border-color:var(--r)}
+[hidden]{display:none!important}</style></head><body>
+<header><h1><a href="index.html" style="color:inherit;text-decoration:none">WorkSquare</a><small>Fair Work. Safe Workers. Transparent Management.</small></h1>
+<button id="tw" data-a="tab" data-v="w"></button><button id="ta" data-a="tab" data-v="a"></button>
+<button id="lo" data-a="logout" class="alt" hidden></button><select id="ind" data-c="ind" aria-label="Industry"><option value="c"></option><option value="e"></option></select>
+<select id="lang" data-c="lang" aria-label="Language"><option value="en">English</option><option value="ta">தமிழ்</option></select></header>
+<main><p class="banner" id="note"></p><div id="app"></div></main><div id="toast" role="status" aria-live="polite"></div>
+<script src="logic.js"></script>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const T={en:{worker:'Worker',admin:'Employer',c:'Construction',e:'College',ci:'Check in',co:'Check out',in:'Checked in since',out:'Not checked in',hist:'Attendance history',hrs:'hrs',ot:'Overtime',sal:'Salary breakdown',base:'Base salary',otpay:'Overtime pay',ded:'Deductions',net:'Net pay',rule:'Overtime above 8h/day at 1.5x; 8% deduction',rep:'Report a problem',cat:'Category',sev:'Severity',desc:'Describe the problem (min 10 characters)',sub:'Submit',trk:'Track a complaint',cid:'Complaint ID (e.g. WF-1001)',find:'Find',nf:'No complaint with that ID',wk:'Workers',pres:'Present now',pend:'Pending complaints',oth:'Overtime hours',st:'Status',s0:'Submitted',s1:'Under review',s2:'Resolved',v0:'Low',v1:'Medium',v2:'High',fat:'Fatigue alert: long hours or short rest',all:'All',dept:'Department',load:'Hours worked per worker',comps:'Safety reports and grievances',none:'Nothing to show yet',note:'SAMPLE DATA in a shared server database. Demo accounts only.',date:'Date',time:'Time',who:'Worker',okci:'Checked in',okco:'Checked out',okrep:'Submitted. Your ID is ',bad:'Please enter at least 10 characters',dup:'Already checked in',lo:'Log out',email:'Email',pw:'Password',login:'Log in'},
+ta:{worker:'தொழிலாளர்',admin:'நிர்வாகி',c:'கட்டுமானம்',e:'கல்லூரி',ci:'வருகை பதிவு',co:'புறப்பாடு பதிவு',in:'பணியில் உள்ளீர்கள், தொடக்கம்',out:'பணியில் இல்லை',hist:'வருகை வரலாறு',hrs:'மணி',ot:'கூடுதல் நேரம்',sal:'சம்பள விவரம்',base:'அடிப்படை சம்பளம்',otpay:'கூடுதல் நேர ஊதியம்',ded:'பிடித்தங்கள்',net:'கையில் பெறும் தொகை',rule:'நாளுக்கு 8 மணிக்கு மேல் 1.5 மடங்கு; 8% பிடித்தம்',rep:'புகார் அளிக்க',cat:'வகை',sev:'தீவிரம்',desc:'பிரச்சனையை விவரிக்கவும் (குறைந்தது 10 எழுத்துகள்)',sub:'சமர்ப்பி',trk:'புகாரைக் கண்காணி',cid:'புகார் எண் (எ.கா. WF-1001)',find:'தேடு',nf:'அந்த எண்ணில் புகார் இல்லை',wk:'தொழிலாளர்கள்',pres:'இப்போது பணியில்',pend:'நிலுவை புகார்கள்',oth:'கூடுதல் நேர மணி',st:'நிலை',s0:'சமர்ப்பிக்கப்பட்டது',s1:'பரிசீலனையில்',s2:'தீர்க்கப்பட்டது',v0:'குறைவு',v1:'நடுத்தரம்',v2:'அதிகம்',fat:'சோர்வு எச்சரிக்கை: அதிக நேரம் அல்லது குறைந்த ஓய்வு',all:'அனைத்தும்',dept:'துறை',load:'தொழிலாளர் வாரியாக வேலை நேரம்',comps:'பாதுகாப்பு புகார்கள்',none:'இன்னும் எதுவும் இல்லை',note:'மாதிரி தரவு, பகிரப்பட்ட சேவையகத் தரவுத்தளத்தில். டெமோ கணக்குகள் மட்டும்.',date:'தேதி',time:'நேரம்',who:'தொழிலாளர்',okci:'வருகை பதிவானது',okco:'புறப்பாடு பதிவானது',okrep:'சமர்ப்பிக்கப்பட்டது. உங்கள் எண்: ',bad:'குறைந்தது 10 எழுத்துகள் உள்ளிடவும்',dup:'ஏற்கனவே பதிவு செய்துள்ளீர்கள்',lo:'வெளியேறு',email:'மின்னஞ்சல்',pw:'கடவுச்சொல்',login:'உள்நுழை'}};
+const IND={c:{cats:[['Unsafe scaffolding','பாதுகாப்பற்ற சாரம்'],['Missing protective equipment','பாதுகாப்பு உபகரணம் இல்லை'],['Excessive working hours','அதிக வேலை நேரம்'],['Unfair pay','நியாயமற்ற ஊதியம்'],['Harassment','துன்புறுத்தல்']]},
+e:{cats:[['Unsafe facilities','பாதுகாப்பற்ற வசதிகள்'],['Unfair shifts','நியாயமற்ற பணிநேரம்'],['Unfair pay','நியாயமற்ற ஊதியம்'],['Harassment','துன்புறுத்தல்'],['Other concern','மற்றவை']]}};
+let S={ind:'c',lang:localStorage.getItem('wf_lang')||'en',workers:[],recs:[],comps:[],user:null};
+const V={tab:'w',wid:null,q:'',f:{d:'',s:''}};
+const t=k=>T[S.lang][k]||T.en[k]||k,save=()=>localStorage.setItem('wf_lang',S.lang);
+const ws=()=>S.workers.filter(w=>w.ind==S.ind),cur=()=>ws().find(w=>w.id==V.wid)||ws()[0];
+const fmt=d=>new Date(d).toLocaleString(S.lang=='ta'?'ta-IN':'en-IN',{dateStyle:'short',timeStyle:'short'});
+const toast=(m,bad)=>{const e=$('#toast');e.textContent=m;e.className=bad?'bad':''};
+const opts=(arr,sel)=>arr.map(([v,l])=>`<option value="${esc(v)}" ${v==sel?'selected':''}>${esc(l)}</option>`).join('');
+const cname=c=>IND[c.ind].cats[c.cat][S.lang=='ta'?1:0];
+function wView(){const w=cur(),rs=S.recs.filter(r=>r.wid==w.id).sort((a,b)=>b.in.localeCompare(a.in)),open=rs.find(r=>!r.out),p=WF.pay(w,rs);
+ const q=V.q.trim()?S.comps.find(c=>c.id==V.q.trim().toUpperCase()):null;
+ return`<div class="grid"><section class="card"><label>${t('worker')}<select data-c="w">${opts(ws().map(x=>[x.id,x.name+' - '+x.dept]),w.id)}</select></label>
+ <p class="big">${open?'🟢 '+t('in')+' '+fmt(open.in):'⚪ '+t('out')}</p>${WF.fatigue(rs)?`<p class="warn">⚠ ${t('fat')}</p>`:''}
+ <div class="row"><button data-a="ci" ${open?'disabled':''}>${t('ci')}</button><button class="alt" data-a="co" ${open?'':'disabled'}>${t('co')}</button></div></section>
+ <section class="card"><h2>${t('sal')}</h2><table>${[['base',p.base],['otpay',p.otPay],['ded',-p.ded]].map(([k,v])=>`<tr><th scope="row">${t(k)}</th><td>₹${v}</td></tr>`).join('')}<tr><th scope="row">${t('net')}</th><td><b>₹${p.net}</b></td></tr></table><p class="m">${t('ot')}: ${p.otHours} ${t('hrs')}. ${t('rule')}</p></section>
+ <section class="card"><h2>${t('hist')}</h2><div class="sc"><table><tr><th>${t('date')}</th><th>${t('time')}</th><th>${t('hrs')}</th><th>${t('ot')}</th></tr>${rs.slice(0,8).map(r=>{const h=r.out?WF.hours(r.in,r.out):0;return`<tr><td>${fmt(r.in).split(',')[0]}</td><td>${fmt(r.in).split(',')[1]||''} - ${r.out?(fmt(r.out).split(',')[1]||''):'...'}</td><td>${h}</td><td>${WF.split(h).overtime}</td></tr>`}).join('')}</table></div></section>
+ <section class="card"><h2>${t('rep')}</h2><form id="rep"><label>${t('cat')}<select name="cat">${opts(IND[S.ind].cats.map((c,i)=>[i,c[S.lang=='ta'?1:0]]))}</select></label>
+ <label>${t('sev')}<select name="sev">${opts([0,1,2].map(i=>[i,t('v'+i)]),1)}</select></label><label>${t('desc')}<textarea name="desc" rows="3" maxlength="500" required></textarea></label><button>${t('sub')}</button></form></section>
+ <section class="card"><h2>${t('trk')}</h2><form id="trk"><label>${t('cid')}<input name="q" value="${esc(V.q)}" maxlength="12"></label><button>${t('find')}</button></form>
+ ${V.q.trim()?(q?`<p><b>${esc(q.id)}</b>: ${esc(cname(q))}<br>${t('st')}: <b>${t('s'+q.st)}</b></p>`:`<p class="warn">${t('nf')}</p>`):''}</section></div>`}
+function aView(){const W=ws(),R=S.recs.filter(r=>W.some(w=>w.id==r.wid));
+ const per=W.map(w=>{const rs=R.filter(r=>r.wid==w.id);return{w,h:rs.reduce((a,r)=>a+(r.out?WF.hours(r.in,r.out):0),0),p:WF.pay(w,rs),f:WF.fatigue(rs)}});
+ const C=S.comps.filter(c=>c.ind==S.ind),dn=id=>(W.find(w=>w.id==id)||{}).dept,
+ sh=C.filter(c=>(V.f.s===''||c.st==V.f.s)&&(!V.f.d||dn(c.wid)==V.f.d)),mx=Math.max(1,...per.map(x=>x.h)),depts=[...new Set(W.map(w=>w.dept))];
+ const stat=(n,l)=>`<div class="card"><div class="stat">${n}</div>${l}</div>`;
+ return`<div class="cards">${stat(W.length,t('wk'))}${stat(W.filter(w=>R.some(r=>r.wid==w.id&&!r.out)).length,t('pres'))}${stat(Math.round(per.reduce((a,x)=>a+x.p.otHours,0)*10)/10,t('oth'))}${stat(C.filter(c=>c.st<2).length,t('pend'))}</div>
+ <div class="grid"><section class="card"><h2>${t('load')}</h2>${per.map(x=>`<p style="margin:.3rem 0">${esc(x.w.name)}: ${Math.round(x.h*10)/10} ${t('hrs')}${x.f?' ⚠':''}<div class="bar" style="width:${x.h/mx*100}%"></div></p>`).join('')}</section>
+ <section class="card"><h2>${t('wk')}</h2><div class="sc"><table><tr><th>${t('who')}</th><th>${t('dept')}</th><th>${t('ot')}</th><th>${t('net')}</th></tr>${per.map(x=>`<tr><td>${esc(x.w.name)}${x.f?` <span class="warn" title="${t('fat')}">⚠ ${t('fat').split(':')[0]}</span>`:''}</td><td>${esc(x.w.dept)}</td><td>${x.p.otHours}</td><td>₹${x.p.net}</td></tr>`).join('')}</table></div></section></div>
+ <section class="card" style="margin-top:1rem"><h2>${t('comps')}</h2><div class="row"><label style="flex:1">${t('dept')}<select data-c="fd">${opts([['',t('all')],...depts.map(d=>[d,d])],V.f.d)}</select></label>
+ <label style="flex:1">${t('st')}<select data-c="fs">${opts([['',t('all')],[0,t('s0')],[1,t('s1')],[2,t('s2')]],V.f.s)}</select></label></div>
+ ${sh.length?`<div class="sc"><table><tr><th>ID</th><th>${t('who')}</th><th>${t('cat')}</th><th>${t('sev')}</th><th>${t('desc').split('(')[0]}</th><th>${t('st')}</th></tr>${sh.map(c=>`<tr><td>${esc(c.id)}</td><td>${esc((W.find(w=>w.id==c.wid)||{}).name||'')}</td><td>${esc(cname(c))}</td><td>${t('v'+c.sev)}</td><td>${esc(c.desc)}<br><span class="m">${fmt(c.at)}</span></td>
+ <td><select data-c="st" data-id="${esc(c.id)}" aria-label="${t('st')} ${esc(c.id)}" style="min-height:44px">${opts([0,1,2].map(i=>[i,t('s'+i)]),c.st)}</select></td></tr>`).join('')}</table></div>`:`<p class="m">${t('none')}</p>`}</section>`}
+function render(){const a=document.activeElement,k=a&&a.dataset&&a.dataset.c,id=a&&a.dataset&&a.dataset.id;
+ document.documentElement.lang=S.lang;const U=S.user,ad=U&&U.role=='admin';$('#tw').hidden=!U||ad;$('#ta').hidden=!ad;$('#ind').hidden=!ad;$('#lo').hidden=!U;$('#lo').textContent=t('lo');$('#tw').textContent=t('worker');$('#ta').textContent=t('admin');
+ $('#tw').className=V.tab=='w'?'on':'';$('#ta').className=V.tab=='a'?'on':'';
+ $('#ind').options[0].text=t('c');$('#ind').options[1].text=t('e');$('#ind').value=S.ind;$('#lang').value=S.lang;
+ $('#note').textContent=t('note');
+ $('#app').innerHTML=!S.user?loginView():V.tab=='w'?wView():aView();
+ if(k){const e=document.querySelector(`#app [data-c="${k}"]${id?`[data-id="${id}"]`:''}`);if(e)e.focus()}}
+async function api(p,m='GET',b){const r=await fetch('/api'+p,{method:m,headers:{'Content-Type':'application/json'},body:b?JSON.stringify(b):undefined,credentials:'same-origin'});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Error');return j}
+async function load(){try{Object.assign(S,await api('/state'));if(S.user.role=='worker')S.ind=S.user.ind;V.tab=S.user.role=='admin'?'a':'w'}catch(e){S.user=null}render()}
+const loginView=()=>`<section class="card" style="max-width:420px;margin:auto"><h2>${t('login')}</h2><form id="login"><label>${t('email')}<input name="email" type="email" required autocomplete="username"></label><label>${t('pw')}<input name="password" type="password" required autocomplete="current-password"></label><button>${t('login')}</button></form>
+<p class="m">Sample accounts: murugan@worksquare.demo (construction worker), lakshmi@worksquare.demo (college worker), admin@worksquare.demo (employer). Password: worksquare-demo</p></section>`;
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+ try{if(a=='tab')V.tab=b.dataset.v;
+ else if(a=='ci'){await api('/checkin','POST');toast(t('okci'));await load()}
+ else if(a=='co'){await api('/checkout','POST');toast(t('okco'));await load()}
+ else if(a=='logout'){await api('/logout','POST');S.user=null;toast('')}}
+ catch(err){toast(err.message,1)}render()});
+document.addEventListener('change',async e=>{const k=e.target.dataset.c,v=e.target.value;if(!k)return;
+ try{if(k=='ind'){S.ind=v;V.wid=null;V.f={d:'',s:''};V.q=''}else if(k=='lang')S.lang=v;else if(k=='w')V.wid=+v;else if(k=='fd')V.f.d=v;else if(k=='fs')V.f.s=v;
+ else if(k=='st'){await api('/complaints/'+encodeURIComponent(e.target.dataset.id),'PATCH',{st:+v});toast(e.target.dataset.id+': '+t('s'+v));await load()}}
+ catch(err){toast(err.message,1)}save();render()});
+document.addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.target),id=e.target.id;
+ try{if(id=='login'){await api('/login','POST',{email:f.get('email'),password:f.get('password')});toast('');return await load()}
+ if(id=='rep'){const d=String(f.get('desc')).trim();if(d.length<10)return toast(t('bad'),1);
+  const c=await api('/complaints','POST',{cat:+f.get('cat'),sev:+f.get('sev'),desc:d});V.q=c.id;toast(t('okrep')+c.id);await load()}
+ else V.q=String(f.get('q')).slice(0,12)}catch(err){toast(err.message,1)}render()});
+load();
+</script></body></html>

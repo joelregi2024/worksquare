@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WorkSquare | Fair work. Safe workers. Transparent management.</title>
+<meta name="description" content="WorkSquare gives construction sites and colleges clear pay, safer workplaces and a trusted channel for every worker's voice. Aligned with UN SDG 8.">
+<style>
+:root{--n:#0b1f33;--n2:#12304d;--t:#0f766e;--tl:#5eead4;--a:#f59e0b;--bg:#f6f8fb;--c:#fff;--tx:#0f172a;--m:#475569;--b:#e2e8f0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:17px/1.65 Inter,system-ui,"Segoe UI",Roboto,Arial,sans-serif;color:var(--tx);background:var(--c)}
+h1,h2,h3{line-height:1.15;margin:0}a{color:var(--t)}:focus-visible{outline:3px solid var(--a);outline-offset:3px}
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;background:var(--a);color:var(--n);padding:.5rem 1rem;z-index:20;border-radius:6px}
+.wrap{max-width:1140px;margin:auto;padding:0 1.5rem}
+.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* nav */
+header{position:sticky;top:0;z-index:10;background:#ffffffee;backdrop-filter:blur(8px);border-bottom:1px solid var(--b)}
+header .wrap{display:flex;align-items:center;gap:2rem;height:68px}
+.logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.3rem;color:var(--n);text-decoration:none;margin-right:auto}
+.mark{width:30px;height:30px;border-radius:7px;background:var(--n);display:grid;place-items:center}.mark i{width:12px;height:12px;border:3px solid var(--tl);border-radius:2px}
+nav{display:flex;gap:1.6rem}nav a{color:var(--m);text-decoration:none;font-weight:600;font-size:.95rem}nav a:hover{color:var(--t)}
+.btn{display:inline-block;background:var(--t);color:#fff;text-decoration:none;font-weight:700;padding:.75rem 1.4rem;border-radius:8px;border:2px solid var(--t)}.btn:hover{background:var(--n);border-color:var(--n)}
+.btn.am{background:var(--a);border-color:var(--a);color:var(--n)}.btn.am:hover{background:#fff;border-color:#fff}
+.btn.gh{background:transparent;color:#fff;border-color:#ffffff80}.btn.gh:hover{background:#ffffff1f;border-color:#fff}
+/* hero */
+.hero{background:radial-gradient(900px 500px at 85% 10%,#1d4e7a55,transparent),linear-gradient(160deg,var(--n),var(--n2));color:#fff;padding:5rem 0 4.5rem}
+.hero .wrap{display:grid;gap:3rem;grid-template-columns:1.1fr .9fr;align-items:center}
+.eyebrow{display:inline-block;color:var(--tl);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
+h1{font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-.02em}h1 em{font-style:normal;color:var(--tl)}
+.lead{color:#cbd5e1;font-size:1.15rem;max-width:560px;margin:1.2rem 0 2rem}.cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.mock{position:relative;display:grid;gap:1rem}.pc{background:var(--c);color:var(--tx);border-radius:14px;padding:1.1rem;box-shadow:0 20px 40px #0006}
+.pc h3{font-size:.8rem;color:var(--m);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.6rem}
+.pc table{width:100%;border-collapse:collapse;font-size:.95rem}.pc td{padding:.25rem 0}.pc td:last-child{text-align:right;font-variant-numeric:tabular-nums}.pc tr.t td{border-top:1px solid var(--b);font-weight:800;color:var(--t);padding-top:.5rem}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.8rem}.tiles div{background:var(--bg);border-radius:8px;padding:.5rem .6rem;font-size:.75rem;color:var(--m)}.tiles b{display:block;font-size:1.3rem;color:var(--n)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:60px}.bars i{flex:1;background:var(--t);border-radius:4px 4px 0 0}.bars i.w{background:var(--a)}
+.smp{font-size:.7rem;color:var(--m);margin-top:.5rem}
+/* sections */
+section{padding:5rem 0}section.alt{background:var(--bg)}.head{max-width:680px;margin-bottom:3rem}.head p{color:var(--m);margin:.8rem 0 0}
+h2{font-size:clamp(1.8rem,4vw,2.5rem);letter-spacing:-.01em}.tag{color:var(--t);font-weight:700;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.6rem}
+.strip{background:var(--c);border-bottom:1px solid var(--b);padding:1.4rem 0}.strip .wrap{display:flex;flex-wrap:wrap;gap:.6rem 2.2rem;align-items:center;color:var(--m);font-weight:600}.strip span.l{color:var(--tx);margin-right:auto}
+.grid{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{background:var(--c);border:1px solid var(--b);border-radius:14px;padding:1.5rem;transition:box-shadow .2s,transform .2s}.card:hover{box-shadow:0 12px 28px #0b1f3318;transform:translateY(-2px)}
+.card h3{font-size:1.1rem;margin:1rem 0 .4rem}.card p{margin:0;color:var(--m);font-size:.97rem}
+.bd{width:48px;height:48px;border-radius:12px;background:#ccfbf1;color:var(--t);display:grid;place-items:center}.bd.a{background:#fef3c7;color:#92400e}
+.two{display:grid;gap:2rem;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.panel{border-radius:16px;padding:2rem}.panel.p{background:#fff1f2}.panel.s{background:#ecfdf5}.panel h3{font-size:1.3rem;margin-bottom:1rem}
+ul.ck{list-style:none;padding:0;margin:0;display:grid;gap:.7rem}ul.ck li{padding-left:1.8rem;position:relative}ul.ck li::before{content:"✓";position:absolute;left:0;color:var(--t);font-weight:800}
+.panel.p ul.ck li::before{content:"✕";color:#b91c1c}
+.steps{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));counter-reset:s}
+.step{counter-increment:s;position:relative;padding:1.6rem;border-radius:14px;background:var(--c);border:1px solid var(--b)}.step::before{content:counter(s);display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--n);color:#fff;font-weight:800;margin-bottom:1rem}
+.step h3{margin-bottom:.4rem}.step p{margin:0;color:var(--m)}
+.ind{display:grid;gap:1.4rem;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}.ind .card{border-top:5px solid var(--t)}.ind .card.e{border-top-color:var(--a)}
+.ind h3{font-size:1.3rem;margin:0 0 .3rem}.ind .tg{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0 1rem}.ind .tg span{background:var(--bg);border-radius:99px;padding:.15rem .7rem;font-size:.85rem;color:var(--m)}
+.sec{background:var(--n);color:#fff}.sec .head p,.sec .tag{color:var(--tl)}.sec .head p{color:#cbd5e1}.sec .card{background:#ffffff0d;border-color:#ffffff22;color:#fff}.sec .card p{color:#cbd5e1}.sec .bd{background:#ffffff1a;color:var(--tl)}
+.sdg{display:flex;flex-wrap:wrap;gap:2rem;align-items:center;background:linear-gradient(120deg,#ecfdf5,#fff);border:1px solid #a7f3d0;border-radius:18px;padding:2.2rem}
+.sdg .n{font-size:3.4rem;font-weight:900;color:#fff;background:var(--t);border-radius:14px;padding:.4rem 1.4rem;line-height:1.2}.sdg div.tx{flex:1;min-width:260px}.sdg h2{font-size:1.7rem;margin-bottom:.4rem}.sdg p{margin:0;color:var(--m)}
+details{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:1rem 1.3rem;margin-bottom:.8rem}summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:1rem}summary::after{content:"+";color:var(--t);font-size:1.4rem;line-height:1}details[open] summary::after{content:"−"}details p{margin:.8rem 0 0;color:var(--m)}
+.faq{max-width:780px}.final{background:linear-gradient(160deg,var(--n),var(--n2));color:#fff;text-align:center;padding:4.5rem 0}.final p{color:#cbd5e1;max-width:560px;margin:1rem auto 2rem}.final .cta{justify-content:center}
+footer{background:#071524;color:#94a3b8;padding:3rem 0 2rem;font-size:.95rem}footer .wrap{display:grid;gap:2rem;grid-template-columns:2fr 1fr 1fr}footer a{color:#cbd5e1;text-decoration:none;display:block;margin:.3rem 0}footer a:hover{color:#fff}footer h4{color:#fff;margin:0 0 .6rem;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase}
+footer .logo{color:#fff}.fine{grid-column:1/-1;border-top:1px solid #ffffff1f;padding-top:1.2rem;font-size:.85rem}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}nav{display:none}footer .wrap{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h7M9 16h7M9 8h3"/></symbol>
+<symbol id="alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0112 0v5l2 2H4z"/><path d="M10 21h4"/></symbol>
+<symbol id="chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></symbol>
+</svg>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap"><a class="logo" href="#top"><span class="mark"><i></i></span>WorkSquare</a>
+<nav aria-label="Main"><a href="#features">Features</a><a href="#solutions">Solutions</a><a href="#how">How it works</a><a href="#security">Security</a><a href="#faq">FAQ</a></nav>
+<a class="btn" href="app.html">Sign in</a></div></header>
+<main id="main">
+<div class="hero" id="top"><div class="wrap"><div>
+<span class="eyebrow">Workforce platform for construction &amp; colleges</span>
+<h1>Fair pay. Safer sites. <em>A voice for every worker.</em></h1>
+<p class="lead">WorkSquare replaces paper registers and chat groups with one trusted system: workers see exactly how they are paid and can report problems, while employers see overtime, fatigue and open concerns early.</p>
+<div class="cta"><a class="btn am" href="app.html">Sign in</a><a class="btn gh" href="#features">Explore features</a></div></div>
+<div class="mock" aria-label="Product preview (sample data)">
+<div class="pc"><h3>Employer dashboard</h3><div class="tiles"><div><b>6/8</b>Present</div><div><b>12.5</b>Overtime h</div><div><b>3</b>Open cases</div></div>
+<div class="bars" aria-hidden="true"><i style="height:55%"></i><i style="height:70%"></i><i class="w" style="height:95%"></i><i style="height:60%"></i><i style="height:75%"></i><i style="height:50%"></i></div></div>
+<div class="pc" style="margin-left:2.5rem"><h3>Worker payslip</h3><table><tr><td>Base salary</td><td>₹18,000.00</td></tr><tr><td>Overtime (2 h)</td><td>+₹259.62</td></tr><tr><td>Deductions</td><td>−₹1,440.00</td></tr><tr class="t"><td>Net pay</td><td>₹16,819.62</td></tr></table><p class="smp">Sample preview</p></div></div></div></div>
+
+<div class="strip"><div class="wrap"><span class="l">Built for shift-based and support workforces</span><span>Construction sites</span><span>Colleges &amp; schools</span><span>Hospitals</span><span>Factories</span></div></div>
+
+<section id="solutions"><div class="wrap"><div class="head"><p class="tag">Why WorkSquare</p><h2>From guesswork to clarity</h2><p>Manual registers hide the problems that matter most. WorkSquare brings them into the open for both sides.</p></div>
+<div class="two"><div class="panel p"><h3>Without a system</h3><ul class="ck"><li>Pay slips that don’t explain overtime or deductions</li><li>Hazards ignored until someone is injured</li><li>Workers afraid to speak up</li><li>Managers unaware of burnout until people quit</li></ul></div>
+<div class="panel s"><h3>With WorkSquare</h3><ul class="ck"><li>Line-by-line pay breakdown, in English or Tamil</li><li>Safety and grievance reports with a tracking ID</li><li>Clear status from Submitted to Resolved</li><li>Fatigue alerts and workload charts for managers</li></ul></div></div></div></section>
+
+<section id="features" class="alt"><div class="wrap"><div class="head"><p class="tag">Features</p><h2>Everything a workplace needs, nothing it doesn’t</h2><p>Two connected interfaces: a simple worker portal and a complete employer dashboard.</p></div>
+<div class="grid">
+<div class="card"><div class="bd"><svg class="ic"><use href="#clock"/></svg></div><h3>Shift tracking</h3><p>One-tap check-in and check-out with automatic hours and overtime.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#doc"/></svg></div><h3>Transparent payslips</h3><p>Base pay, overtime, deductions and net pay explained line by line.</p></div>
+<div class="card"><div class="bd a"><svg class="ic"><use href="#alert"/></svg></div><h3>Safety &amp; grievance reports</h3><p>Report hazards, unfair pay or harassment by category and severity.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#search"/></svg></div><h3>Complaint tracking</h3><p>Every report gets a unique ID so workers can follow progress to resolution.</p></div>
+<div class="card"><div class="bd a"><svg class="ic"><use href="#bell"/></svg></div><h3>Fatigue alerts</h3><p>Flags long days and too little rest between shifts before they cause harm.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#chart"/></svg></div><h3>Employer dashboard</h3><p>Attendance, overtime, workload charts, filters and case management in one view.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#globe"/></svg></div><h3>Accessible &amp; bilingual</h3><p>English and Tamil, large touch targets, high contrast and keyboard support.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#lock"/></svg></div><h3>Role-based access</h3><p>Workers see only their own records; only admins manage the whole workforce.</p></div></div></div></section>
+
+<section id="how"><div class="wrap"><div class="head"><p class="tag">How it works</p><h2>Three steps from shift start to resolution</h2></div>
+<div class="steps"><div class="step"><h3>Check in</h3><p>Workers log their shift in one tap. Hours and overtime are calculated using configurable rules.</p></div>
+<div class="step"><h3>See and speak</h3><p>Workers review a transparent payslip and file safety or fairness reports that they can track.</p></div>
+<div class="step"><h3>Act early</h3><p>Employers watch overtime, fatigue and open cases, then update statuses until each issue is resolved.</p></div></div></div></section>
+
+<section class="alt"><div class="wrap"><div class="head"><p class="tag">Industries</p><h2>One platform, many workplaces</h2><p>Switch industry and the roles, departments and complaint categories change with it.</p></div>
+<div class="ind"><div class="card"><h3>Construction</h3><div class="tg"><span>Site crews</span><span>Supervisors</span><span>Safety officers</span></div><ul class="ck"><li>Unsafe scaffolding and missing protective equipment</li><li>Excessive hours on active sites</li><li>Daily attendance for shift workers</li></ul></div>
+<div class="card e"><h3>Colleges &amp; schools</h3><div class="tg"><span>Housekeeping</span><span>Maintenance</span><span>Security</span><span>Admin</span></div><ul class="ck"><li>Unsafe facilities and wet floors</li><li>Unfair shift patterns and night duty</li><li>Pay clarity for support staff</li></ul></div></div></div></section>
+
+<section id="security" class="sec"><div class="wrap"><div class="head"><p class="tag">Security &amp; trust</p><h2>Built with safeguards from day one</h2><p>Workforce data is sensitive. WorkSquare enforces access rules on the server, not just in the interface.</p></div>
+<div class="grid"><div class="card"><div class="bd"><svg class="ic"><use href="#lock"/></svg></div><h3>Protected accounts</h3><p>Passwords are hashed and sessions use signed, HttpOnly cookies.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#search"/></svg></div><h3>Least-privilege access</h3><p>Workers can only read their own attendance, pay and reports.</p></div>
+<div class="card"><div class="bd"><svg class="ic"><use href="#alert"/></svg></div><h3>Validated input</h3><p>Parameterised queries, input checks and login throttling guard every request.</p></div></div></div></section>
+
+<section><div class="wrap"><div class="sdg"><div class="n">SDG 8</div><div class="tx"><h2>Decent work and economic growth</h2><p>Clear pay, safer conditions and a way to raise concerns are the foundations of decent work. WorkSquare puts them in the hands of the people who need them most.</p></div></div></div></section>
+
+<section id="faq" class="alt"><div class="wrap"><div class="head"><p class="tag">FAQ</p><h2>Common questions</h2></div><div class="faq">
+<details><summary>Who is WorkSquare for?</summary><p>Employers with large shift-based or support workforces, such as construction firms and colleges, and the workers they employ. The same engine can extend to hospitals and factories.</p></details>
+<details><summary>How is overtime calculated?</summary><p>Time beyond 8 hours in a day is overtime, paid at 1.5 times the hourly rate. These rules are configurable in the application.</p></details>
+<details><summary>Which languages are supported?</summary><p>English and Tamil today, with the interface built so more languages can be added.</p></details>
+<details><summary>Can workers report problems anonymously?</summary><p>Not yet. Reports are linked to the worker’s account so that cases can be followed up. We do not claim anonymity we cannot guarantee.</p></details>
+<details><summary>Is this production software?</summary><p>WorkSquare is a prototype built for Prompt Wars 2026. The data you see is sample data, and storage resets when the service restarts.</p></details></div></div></section>
+
+<div class="final"><div class="wrap"><h2>Make every shift fairer and safer</h2><p>Sign in to open the worker portal or the employer dashboard.</p><div class="cta"><a class="btn am" href="app.html">Sign in</a></div></div></div>
+</main>
+<footer><div class="wrap"><div><a class="logo" href="#top"><span class="mark" style="background:#12304d"><i></i></span>WorkSquare</a><p>Fair work. Safe workers. Transparent management.</p></div>
+<div><h4>Product</h4><a href="#features">Features</a><a href="#how">How it works</a><a href="#security">Security</a></div><div><h4>Company</h4><a href="#solutions">Why WorkSquare</a><a href="#faq">FAQ</a><a href="app.html">Sign in</a></div>
+<p class="fine">© 2026 WorkSquare. A Prompt Wars 2026 × SRM ACM Student Chapter prototype. Sample data only.</p></div></footer>
+</body></html>
